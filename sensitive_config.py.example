@@ -1,0 +1,92 @@
+"""
+敏感信息配置文件示例
+复制此文件为 sensitive_config.py 并修改为您的实际配置
+
+命令: cp sensitive_config.py.example sensitive_config.py
+"""
+
+# ========================================
+# 网络配置 - 请修改为您的实际IP地址
+# ========================================
+
+# Ubuntu开发机器IP地址
+UBUNTU_IP = "192.168.1.100"  # 修改为您的Ubuntu机器IP
+
+# 树莓派IP地址  
+RASPBERRY_PI_IP = "192.168.1.101"  # 修改为您的树莓派IP
+
+# Docker环境IP（通常无需修改）
+DOCKER_IP = "172.18.188.48"
+
+# ========================================
+# 用户配置 - 请修改为您的实际用户名
+# ========================================
+
+# 树莓派用户名
+PI_USERNAME = "pi"  # 修改为您的树莓派用户名
+
+# ========================================
+# ROS桥接配置 - 自动生成，通常无需修改
+# ========================================
+
+ROSBRIDGE_PORT = 9090
+ROSBRIDGE_URL_PI = f"ws://{RASPBERRY_PI_IP}:{ROSBRIDGE_PORT}"
+ROSBRIDGE_URL_DOCKER = f"ws://{DOCKER_IP}:{ROSBRIDGE_PORT}"
+
+# ========================================
+# WiFi配置 - 请修改为您的实际WiFi信息
+# ========================================
+
+# WiFi网络名称
+WIFI_SSID = "YourWiFiName"  # 修改为您的WiFi名称
+
+# WiFi密码
+WIFI_PASSWORD = "YourWiFiPassword"  # 修改为您的WiFi密码
+
+# ========================================
+# SSH配置 - 自动生成，通常无需修改
+# ========================================
+
+SSH_COMMAND = f"ssh {PI_USERNAME}@{RASPBERRY_PI_IP}"
+SSH_PORT = 22
+
+# ========================================
+# 配置验证函数（可选）
+# ========================================
+
+def validate_config():
+    """验证配置是否合理"""
+    import ipaddress
+    import warnings
+    
+    try:
+        # 验证IP地址格式
+        ipaddress.ip_address(UBUNTU_IP)
+        ipaddress.ip_address(RASPBERRY_PI_IP)
+        ipaddress.ip_address(DOCKER_IP)
+        print("✅ IP地址格式验证通过")
+    except ValueError as e:
+        warnings.warn(f"❌ IP地址格式错误: {e}")
+    
+    # 检查是否还是示例值
+    if UBUNTU_IP == "192.168.1.100":
+        warnings.warn("⚠️  警告: 您可能还在使用示例IP地址，请修改为实际值")
+    
+    if PI_USERNAME == "pi":
+        warnings.warn("⚠️  警告: 您可能还在使用示例用户名，请确认是否正确")
+    
+    if WIFI_SSID == "YourWiFiName":
+        warnings.warn("⚠️  警告: 您还在使用示例WiFi配置，请修改为实际值")
+
+if __name__ == "__main__":
+    print("🔧 敏感信息配置验证")
+    print("=" * 40)
+    validate_config()
+    print("\n📋 当前配置:")
+    print(f"   Ubuntu IP: {UBUNTU_IP}")
+    print(f"   树莓派 IP: {RASPBERRY_PI_IP}")
+    print(f"   Docker IP: {DOCKER_IP}")
+    print(f"   用户名: {PI_USERNAME}")
+    print(f"   ROS桥接URL: {ROSBRIDGE_URL_PI}")
+    print(f"   SSH命令: {SSH_COMMAND}")
+    print("\n请确认以上配置是否正确！") 

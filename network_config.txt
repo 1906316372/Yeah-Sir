@@ -1,0 +1,32 @@
+# Network Configuration for Robot Arm Project
+# Updated: 2025-06-02
+
+Ubuntu Machine:
+- IP Address: UBUNTU_MACHINE_IP
+- Hostname: Xtechlab-Lin
+
+Raspberry Pi (Ubuntu Server):
+- IP Address: RASPBERRY_PI_IP
+- Hostname: ubuntu-pi
+- Username: PI_USERNAME
+- SSH Command: ssh PI_USERNAME@RASPBERRY_PI_IP
+- OS: Ubuntu Server 22.04.5 LTS ARM64
+- Kernel: 5.15.0-1061-raspi
+- Architecture: aarch64
+
+Network Test Commands:
+# From Ubuntu to Pi:
+ping RASPBERRY_PI_IP
+ssh PI_USERNAME@RASPBERRY_PI_IP
+
+# From Pi to Ubuntu:
+ping UBUNTU_MACHINE_IP
+
+ROS Bridge Configuration:
+- Pi runs ROS Bridge on: ws://RASPBERRY_PI_IP:9090
+- Ubuntu MCP Server connects to: ws://RASPBERRY_PI_IP:9090
+
+ROS2 Status:
+- ✅ Ubuntu Server 22.04.5 LTS installed
+- 🔄 ROS2 Humble ready to install (Python 3.10 available)
+- ⏳ Hardware libraries ready to install 
